@@ -1,0 +1,1849 @@
+{
+    "name": "PetFlow IA - Aprobación HITL",
+    "flow": [
+        {
+            "id": 2,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2716479,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "PetFlow_HITL_Decision"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "ticket_id",
+                        "type": "text"
+                    },
+                    {
+                        "name": "decision",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "airtable:ActionSearchRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 10488715
+            },
+            "mapper": {
+                "base": "app2wQvjIeKuMe057",
+                "table": "tbluKDLKTFNQ639xL",
+                "formula": "RECORD_ID()=\"{{2.ticket_id}}\"",
+                "maxRecords": "1",
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "mode": "chose",
+                            "label": "PetFlow IA — Consultas y Reclamos"
+                        },
+                        "sort": {
+                            "mode": "chose"
+                        },
+                        "view": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "table": {
+                            "mode": "chose",
+                            "label": "Tickets"
+                        },
+                        "fields": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "Pedro's Airtable OAuth connection (User ID: usrpoN5mZiloZBpVR)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "type": "select",
+                                "label": "Field",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "direction",
+                                "type": "select",
+                                "label": "Direction",
+                                "options": [
+                                    {
+                                        "label": "Descending",
+                                        "value": "desc"
+                                    },
+                                    {
+                                        "label": "Ascending",
+                                        "value": "asc"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Output Fields",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "﻿Ticket_ID",
+                        "type": "text",
+                        "label": "﻿Ticket_ID",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Fecha_Ingreso",
+                        "time": true,
+                        "type": "date",
+                        "label": "Fecha_Ingreso"
+                    },
+                    {
+                        "name": "Cliente",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Cliente"
+                    },
+                    {
+                        "name": "Email",
+                        "type": "text",
+                        "label": "Email",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Asunto",
+                        "type": "text",
+                        "label": "Asunto",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Mensaje_Original",
+                        "type": "text",
+                        "label": "Mensaje_Original",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Categoria",
+                        "type": "text",
+                        "label": "Categoria",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Prioridad",
+                        "type": "text",
+                        "label": "Prioridad"
+                    },
+                    {
+                        "name": "Sentimiento",
+                        "type": "text",
+                        "label": "Sentimiento"
+                    },
+                    {
+                        "name": "Confianza_IA",
+                        "type": "number",
+                        "label": "Confianza_IA"
+                    },
+                    {
+                        "name": "Resumen_IA",
+                        "type": "text",
+                        "label": "Resumen_IA",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Respuesta_Propuesta",
+                        "type": "text",
+                        "label": "Respuesta_Propuesta",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Requiere_Aprobacion",
+                        "type": "boolean",
+                        "label": "Requiere_Aprobacion"
+                    },
+                    {
+                        "name": "Motivo_Aprobacion",
+                        "type": "text",
+                        "label": "Motivo_Aprobacion",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Estado",
+                        "type": "text",
+                        "label": "Estado"
+                    },
+                    {
+                        "name": "Thread_ID_Gmail",
+                        "type": "text",
+                        "label": "Thread_ID_Gmail",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Message_ID_Gmail",
+                        "type": "text",
+                        "label": "Message_ID_Gmail",
+                        "multiline": true
+                    },
+                    {
+                        "name": "ID_Ejecucion_Make",
+                        "type": "text",
+                        "label": "ID_Ejecucion_Make",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Tipo_Resolucion",
+                        "type": "text",
+                        "label": "Tipo_Resolucion"
+                    },
+                    {
+                        "name": "Fecha_Respuesta",
+                        "time": true,
+                        "type": "date",
+                        "label": "Fecha_Respuesta"
+                    },
+                    {
+                        "name": "Tiempo_Respuesta_Min",
+                        "type": "number",
+                        "label": "Tiempo_Respuesta_Min"
+                    },
+                    {
+                        "name": "Aprobaciones",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Aprobaciones"
+                    },
+                    {
+                        "name": "Errores",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Errores"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 5,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 10488715
+                            },
+                            "filter": {
+                                "name": "Aprobar",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{2.decision}}",
+                                            "b": "aprobar",
+                                            "o": "text:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "id": "{{2.ticket_id}}",
+                                "base": "app2wQvjIeKuMe057",
+                                "table": "tbluKDLKTFNQ639xL",
+                                "record": {
+                                    "fldKKYm8zgLssJ75H": "HITL",
+                                    "flddnwH5fX7udcLs0": "Aprobado por humano"
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": -150
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "PetFlow IA — Consultas y Reclamos"
+                                        },
+                                        "table": {
+                                            "label": "Tickets"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fld753tV2my4PPg0b": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldD0le8lTH1YNJun": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldKKYm8zgLssJ75H": {
+                                                    "mode": "chose",
+                                                    "label": "HITL"
+                                                },
+                                                "fldcvUT0kAtXV96FQ": {
+                                                    "mode": "chose"
+                                                },
+                                                "flddnwH5fX7udcLs0": {
+                                                    "mode": "chose",
+                                                    "label": "Aprobado por humano"
+                                                },
+                                                "fldfGND3rJk7ZcSTR": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldlKWgfVXZcFaRn7": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldlydI63r8WmsQvG": {
+                                                    "mode": "edit"
+                                                }
+                                            }
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            },
+                                            "label": "Pedro's Airtable OAuth connection (User ID: usrpoN5mZiloZBpVR)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fld9x78P5e9zesWXY",
+                                                "type": "text",
+                                                "label": "﻿Ticket_ID"
+                                            },
+                                            {
+                                                "name": "fld4Ylunrbqs3OmHZ",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Ingreso"
+                                            },
+                                            {
+                                                "name": "fldcvUT0kAtXV96FQ",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Cliente"
+                                            },
+                                            {
+                                                "name": "fld4DaamWEQa6yhq9",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldA2O2Gr2fV4oKcA",
+                                                "type": "text",
+                                                "label": "Asunto"
+                                            },
+                                            {
+                                                "name": "fldR2NV8oFZpeldPo",
+                                                "type": "text",
+                                                "label": "Mensaje_Original"
+                                            },
+                                            {
+                                                "name": "fldVa3PBQ5uHdpCMV",
+                                                "type": "text",
+                                                "label": "Categoria"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlydI63r8WmsQvG",
+                                                "type": "select",
+                                                "label": "Prioridad"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlKWgfVXZcFaRn7",
+                                                "type": "select",
+                                                "label": "Sentimiento"
+                                            },
+                                            {
+                                                "name": "fldJtFSzI52NP2iaB",
+                                                "type": "number",
+                                                "label": "Confianza_IA"
+                                            },
+                                            {
+                                                "name": "fldYKKXgp6Sg6JECD",
+                                                "type": "text",
+                                                "label": "Resumen_IA"
+                                            },
+                                            {
+                                                "name": "fld3zG5ezQBSXbOWA",
+                                                "type": "text",
+                                                "label": "Respuesta_Propuesta"
+                                            },
+                                            {
+                                                "name": "fldD0le8lTH1YNJun",
+                                                "type": "boolean",
+                                                "label": "Requiere_Aprobacion"
+                                            },
+                                            {
+                                                "name": "fld1e0KyfuthD1RfM",
+                                                "type": "text",
+                                                "label": "Motivo_Aprobacion"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "flddnwH5fX7udcLs0",
+                                                "type": "select",
+                                                "label": "Estado"
+                                            },
+                                            {
+                                                "name": "fldJL3ZISU9fAPjOk",
+                                                "type": "text",
+                                                "label": "Thread_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fldsB0pTULV6XbR4m",
+                                                "type": "text",
+                                                "label": "Message_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fld8Z8KdcNlsc9wyw",
+                                                "type": "text",
+                                                "label": "ID_Ejecucion_Make"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldKKYm8zgLssJ75H",
+                                                "type": "select",
+                                                "label": "Tipo_Resolucion"
+                                            },
+                                            {
+                                                "name": "fldG7fpP3uQZPtnzd",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Respuesta"
+                                            },
+                                            {
+                                                "name": "fldTxH452KfG0h44V",
+                                                "type": "number",
+                                                "label": "Tiempo_Respuesta_Min"
+                                            },
+                                            {
+                                                "name": "fldfGND3rJk7ZcSTR",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Aprobaciones"
+                                            },
+                                            {
+                                                "name": "fld753tV2my4PPg0b",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Errores"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "﻿Ticket_ID",
+                                        "type": "text",
+                                        "label": "﻿Ticket_ID",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha_Ingreso",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Ingreso"
+                                    },
+                                    {
+                                        "name": "Cliente",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Cliente"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Asunto",
+                                        "type": "text",
+                                        "label": "Asunto",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Mensaje_Original",
+                                        "type": "text",
+                                        "label": "Mensaje_Original",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Categoria",
+                                        "type": "text",
+                                        "label": "Categoria",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Prioridad",
+                                        "type": "text",
+                                        "label": "Prioridad"
+                                    },
+                                    {
+                                        "name": "Sentimiento",
+                                        "type": "text",
+                                        "label": "Sentimiento"
+                                    },
+                                    {
+                                        "name": "Confianza_IA",
+                                        "type": "number",
+                                        "label": "Confianza_IA"
+                                    },
+                                    {
+                                        "name": "Resumen_IA",
+                                        "type": "text",
+                                        "label": "Resumen_IA",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Respuesta_Propuesta",
+                                        "type": "text",
+                                        "label": "Respuesta_Propuesta",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Requiere_Aprobacion",
+                                        "type": "boolean",
+                                        "label": "Requiere_Aprobacion"
+                                    },
+                                    {
+                                        "name": "Motivo_Aprobacion",
+                                        "type": "text",
+                                        "label": "Motivo_Aprobacion",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "type": "text",
+                                        "label": "Estado"
+                                    },
+                                    {
+                                        "name": "Thread_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Thread_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Message_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Message_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "ID_Ejecucion_Make",
+                                        "type": "text",
+                                        "label": "ID_Ejecucion_Make",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Tipo_Resolucion",
+                                        "type": "text",
+                                        "label": "Tipo_Resolucion"
+                                    },
+                                    {
+                                        "name": "Fecha_Respuesta",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Respuesta"
+                                    },
+                                    {
+                                        "name": "Tiempo_Respuesta_Min",
+                                        "type": "number",
+                                        "label": "Tiempo_Respuesta_Min"
+                                    },
+                                    {
+                                        "name": "Aprobaciones",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Aprobaciones"
+                                    },
+                                    {
+                                        "name": "Errores",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Errores"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "module": "google-email:replyToAnEmail",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 10488001
+                            },
+                            "mapper": {
+                                "bodyType": "collection",
+                                "contents": [
+                                    {
+                                        "text": "{{5.Respuesta_Propuesta}}",
+                                        "image": {}
+                                    }
+                                ],
+                                "threadId": "{{5.Thread_ID_Gmail}}",
+                                "replyMode": "sender"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": -150
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "from": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "bodyType": {
+                                            "label": "Collection of contents (text, images, etc.)"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "replyMode": {
+                                            "mode": "chose",
+                                            "label": "Reply to sender only"
+                                        },
+                                        "signature": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "Pedro's Gmail connection (pedropractica72@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "threadId",
+                                        "type": "text",
+                                        "label": "Thread ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "replyMode",
+                                        "type": "select",
+                                        "label": "Reply mode",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "all",
+                                                "sender",
+                                                "custom"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "text",
+                                                    "type": "text",
+                                                    "label": "Text"
+                                                },
+                                                {
+                                                    "name": "image",
+                                                    "spec": [
+                                                        {
+                                                            "name": "filename",
+                                                            "type": "filename",
+                                                            "label": "File name",
+                                                            "semantic": "file:name"
+                                                        },
+                                                        {
+                                                            "name": "data",
+                                                            "type": "buffer",
+                                                            "label": "Data",
+                                                            "semantic": "file:data"
+                                                        },
+                                                        {
+                                                            "name": "width",
+                                                            "type": "uinteger",
+                                                            "label": "Width"
+                                                        },
+                                                        {
+                                                            "name": "height",
+                                                            "type": "uinteger",
+                                                            "label": "Height"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Image"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Content"
+                                        },
+                                        "type": "array",
+                                        "label": "Body contents"
+                                    },
+                                    {
+                                        "name": "signature",
+                                        "type": "select",
+                                        "label": "Signature content"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 8,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 10488715
+                            },
+                            "mapper": {
+                                "id": "{{5.id}}",
+                                "base": "app2wQvjIeKuMe057",
+                                "table": "tbluKDLKTFNQ639xL",
+                                "record": {
+                                    "fldG7fpP3uQZPtnzd": "{{now}}",
+                                    "flddnwH5fX7udcLs0": "Respuesta enviada"
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": -150
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "PetFlow IA — Consultas y Reclamos"
+                                        },
+                                        "table": {
+                                            "label": "Tickets"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fld753tV2my4PPg0b": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldD0le8lTH1YNJun": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldKKYm8zgLssJ75H": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldcvUT0kAtXV96FQ": {
+                                                    "mode": "chose"
+                                                },
+                                                "flddnwH5fX7udcLs0": {
+                                                    "mode": "chose",
+                                                    "label": "Respuesta enviada"
+                                                },
+                                                "fldfGND3rJk7ZcSTR": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldlKWgfVXZcFaRn7": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldlydI63r8WmsQvG": {
+                                                    "mode": "edit"
+                                                }
+                                            }
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            },
+                                            "label": "Pedro's Airtable OAuth connection (User ID: usrpoN5mZiloZBpVR)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fld9x78P5e9zesWXY",
+                                                "type": "text",
+                                                "label": "﻿Ticket_ID"
+                                            },
+                                            {
+                                                "name": "fld4Ylunrbqs3OmHZ",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Ingreso"
+                                            },
+                                            {
+                                                "name": "fldcvUT0kAtXV96FQ",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Cliente"
+                                            },
+                                            {
+                                                "name": "fld4DaamWEQa6yhq9",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldA2O2Gr2fV4oKcA",
+                                                "type": "text",
+                                                "label": "Asunto"
+                                            },
+                                            {
+                                                "name": "fldR2NV8oFZpeldPo",
+                                                "type": "text",
+                                                "label": "Mensaje_Original"
+                                            },
+                                            {
+                                                "name": "fldVa3PBQ5uHdpCMV",
+                                                "type": "text",
+                                                "label": "Categoria"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlydI63r8WmsQvG",
+                                                "type": "select",
+                                                "label": "Prioridad"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlKWgfVXZcFaRn7",
+                                                "type": "select",
+                                                "label": "Sentimiento"
+                                            },
+                                            {
+                                                "name": "fldJtFSzI52NP2iaB",
+                                                "type": "number",
+                                                "label": "Confianza_IA"
+                                            },
+                                            {
+                                                "name": "fldYKKXgp6Sg6JECD",
+                                                "type": "text",
+                                                "label": "Resumen_IA"
+                                            },
+                                            {
+                                                "name": "fld3zG5ezQBSXbOWA",
+                                                "type": "text",
+                                                "label": "Respuesta_Propuesta"
+                                            },
+                                            {
+                                                "name": "fldD0le8lTH1YNJun",
+                                                "type": "boolean",
+                                                "label": "Requiere_Aprobacion"
+                                            },
+                                            {
+                                                "name": "fld1e0KyfuthD1RfM",
+                                                "type": "text",
+                                                "label": "Motivo_Aprobacion"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "flddnwH5fX7udcLs0",
+                                                "type": "select",
+                                                "label": "Estado"
+                                            },
+                                            {
+                                                "name": "fldJL3ZISU9fAPjOk",
+                                                "type": "text",
+                                                "label": "Thread_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fldsB0pTULV6XbR4m",
+                                                "type": "text",
+                                                "label": "Message_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fld8Z8KdcNlsc9wyw",
+                                                "type": "text",
+                                                "label": "ID_Ejecucion_Make"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldKKYm8zgLssJ75H",
+                                                "type": "select",
+                                                "label": "Tipo_Resolucion"
+                                            },
+                                            {
+                                                "name": "fldG7fpP3uQZPtnzd",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Respuesta"
+                                            },
+                                            {
+                                                "name": "fldTxH452KfG0h44V",
+                                                "type": "number",
+                                                "label": "Tiempo_Respuesta_Min"
+                                            },
+                                            {
+                                                "name": "fldfGND3rJk7ZcSTR",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Aprobaciones"
+                                            },
+                                            {
+                                                "name": "fld753tV2my4PPg0b",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Errores"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "﻿Ticket_ID",
+                                        "type": "text",
+                                        "label": "﻿Ticket_ID",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha_Ingreso",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Ingreso"
+                                    },
+                                    {
+                                        "name": "Cliente",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Cliente"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Asunto",
+                                        "type": "text",
+                                        "label": "Asunto",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Mensaje_Original",
+                                        "type": "text",
+                                        "label": "Mensaje_Original",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Categoria",
+                                        "type": "text",
+                                        "label": "Categoria",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Prioridad",
+                                        "type": "text",
+                                        "label": "Prioridad"
+                                    },
+                                    {
+                                        "name": "Sentimiento",
+                                        "type": "text",
+                                        "label": "Sentimiento"
+                                    },
+                                    {
+                                        "name": "Confianza_IA",
+                                        "type": "number",
+                                        "label": "Confianza_IA"
+                                    },
+                                    {
+                                        "name": "Resumen_IA",
+                                        "type": "text",
+                                        "label": "Resumen_IA",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Respuesta_Propuesta",
+                                        "type": "text",
+                                        "label": "Respuesta_Propuesta",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Requiere_Aprobacion",
+                                        "type": "boolean",
+                                        "label": "Requiere_Aprobacion"
+                                    },
+                                    {
+                                        "name": "Motivo_Aprobacion",
+                                        "type": "text",
+                                        "label": "Motivo_Aprobacion",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "type": "text",
+                                        "label": "Estado"
+                                    },
+                                    {
+                                        "name": "Thread_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Thread_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Message_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Message_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "ID_Ejecucion_Make",
+                                        "type": "text",
+                                        "label": "ID_Ejecucion_Make",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Tipo_Resolucion",
+                                        "type": "text",
+                                        "label": "Tipo_Resolucion"
+                                    },
+                                    {
+                                        "name": "Fecha_Respuesta",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Respuesta"
+                                    },
+                                    {
+                                        "name": "Tiempo_Respuesta_Min",
+                                        "type": "number",
+                                        "label": "Tiempo_Respuesta_Min"
+                                    },
+                                    {
+                                        "name": "Aprobaciones",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Aprobaciones"
+                                    },
+                                    {
+                                        "name": "Errores",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Errores"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 6,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 10488715
+                            },
+                            "filter": {
+                                "name": "Rechazar",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{2.decision}}",
+                                            "b": "rechazar",
+                                            "o": "text:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "id": "{{2.ticket_id}}",
+                                "base": "app2wQvjIeKuMe057",
+                                "table": "tbluKDLKTFNQ639xL",
+                                "record": {
+                                    "fldKKYm8zgLssJ75H": "HITL",
+                                    "flddnwH5fX7udcLs0": "Rechazado por humano"
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 150
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "PetFlow IA — Consultas y Reclamos"
+                                        },
+                                        "table": {
+                                            "label": "Tickets"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fld753tV2my4PPg0b": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldD0le8lTH1YNJun": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldKKYm8zgLssJ75H": {
+                                                    "mode": "chose",
+                                                    "label": "HITL"
+                                                },
+                                                "fldcvUT0kAtXV96FQ": {
+                                                    "mode": "chose"
+                                                },
+                                                "flddnwH5fX7udcLs0": {
+                                                    "mode": "chose",
+                                                    "label": "Rechazado por humano"
+                                                },
+                                                "fldfGND3rJk7ZcSTR": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldlKWgfVXZcFaRn7": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldlydI63r8WmsQvG": {
+                                                    "mode": "edit"
+                                                }
+                                            }
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            },
+                                            "label": "Pedro's Airtable OAuth connection (User ID: usrpoN5mZiloZBpVR)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fld9x78P5e9zesWXY",
+                                                "type": "text",
+                                                "label": "﻿Ticket_ID"
+                                            },
+                                            {
+                                                "name": "fld4Ylunrbqs3OmHZ",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Ingreso"
+                                            },
+                                            {
+                                                "name": "fldcvUT0kAtXV96FQ",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Cliente"
+                                            },
+                                            {
+                                                "name": "fld4DaamWEQa6yhq9",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldA2O2Gr2fV4oKcA",
+                                                "type": "text",
+                                                "label": "Asunto"
+                                            },
+                                            {
+                                                "name": "fldR2NV8oFZpeldPo",
+                                                "type": "text",
+                                                "label": "Mensaje_Original"
+                                            },
+                                            {
+                                                "name": "fldVa3PBQ5uHdpCMV",
+                                                "type": "text",
+                                                "label": "Categoria"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlydI63r8WmsQvG",
+                                                "type": "select",
+                                                "label": "Prioridad"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldlKWgfVXZcFaRn7",
+                                                "type": "select",
+                                                "label": "Sentimiento"
+                                            },
+                                            {
+                                                "name": "fldJtFSzI52NP2iaB",
+                                                "type": "number",
+                                                "label": "Confianza_IA"
+                                            },
+                                            {
+                                                "name": "fldYKKXgp6Sg6JECD",
+                                                "type": "text",
+                                                "label": "Resumen_IA"
+                                            },
+                                            {
+                                                "name": "fld3zG5ezQBSXbOWA",
+                                                "type": "text",
+                                                "label": "Respuesta_Propuesta"
+                                            },
+                                            {
+                                                "name": "fldD0le8lTH1YNJun",
+                                                "type": "boolean",
+                                                "label": "Requiere_Aprobacion"
+                                            },
+                                            {
+                                                "name": "fld1e0KyfuthD1RfM",
+                                                "type": "text",
+                                                "label": "Motivo_Aprobacion"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "flddnwH5fX7udcLs0",
+                                                "type": "select",
+                                                "label": "Estado"
+                                            },
+                                            {
+                                                "name": "fldJL3ZISU9fAPjOk",
+                                                "type": "text",
+                                                "label": "Thread_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fldsB0pTULV6XbR4m",
+                                                "type": "text",
+                                                "label": "Message_ID_Gmail"
+                                            },
+                                            {
+                                                "name": "fld8Z8KdcNlsc9wyw",
+                                                "type": "text",
+                                                "label": "ID_Ejecucion_Make"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldKKYm8zgLssJ75H",
+                                                "type": "select",
+                                                "label": "Tipo_Resolucion"
+                                            },
+                                            {
+                                                "name": "fldG7fpP3uQZPtnzd",
+                                                "time": true,
+                                                "type": "date",
+                                                "label": "Fecha_Respuesta"
+                                            },
+                                            {
+                                                "name": "fldTxH452KfG0h44V",
+                                                "type": "number",
+                                                "label": "Tiempo_Respuesta_Min"
+                                            },
+                                            {
+                                                "name": "fldfGND3rJk7ZcSTR",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Aprobaciones"
+                                            },
+                                            {
+                                                "name": "fld753tV2my4PPg0b",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "label": "Record ID"
+                                                },
+                                                "type": "array",
+                                                "label": "Errores"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "﻿Ticket_ID",
+                                        "type": "text",
+                                        "label": "﻿Ticket_ID",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha_Ingreso",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Ingreso"
+                                    },
+                                    {
+                                        "name": "Cliente",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Cliente"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Asunto",
+                                        "type": "text",
+                                        "label": "Asunto",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Mensaje_Original",
+                                        "type": "text",
+                                        "label": "Mensaje_Original",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Categoria",
+                                        "type": "text",
+                                        "label": "Categoria",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Prioridad",
+                                        "type": "text",
+                                        "label": "Prioridad"
+                                    },
+                                    {
+                                        "name": "Sentimiento",
+                                        "type": "text",
+                                        "label": "Sentimiento"
+                                    },
+                                    {
+                                        "name": "Confianza_IA",
+                                        "type": "number",
+                                        "label": "Confianza_IA"
+                                    },
+                                    {
+                                        "name": "Resumen_IA",
+                                        "type": "text",
+                                        "label": "Resumen_IA",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Respuesta_Propuesta",
+                                        "type": "text",
+                                        "label": "Respuesta_Propuesta",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Requiere_Aprobacion",
+                                        "type": "boolean",
+                                        "label": "Requiere_Aprobacion"
+                                    },
+                                    {
+                                        "name": "Motivo_Aprobacion",
+                                        "type": "text",
+                                        "label": "Motivo_Aprobacion",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "type": "text",
+                                        "label": "Estado"
+                                    },
+                                    {
+                                        "name": "Thread_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Thread_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Message_ID_Gmail",
+                                        "type": "text",
+                                        "label": "Message_ID_Gmail",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "ID_Ejecucion_Make",
+                                        "type": "text",
+                                        "label": "ID_Ejecucion_Make",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Tipo_Resolucion",
+                                        "type": "text",
+                                        "label": "Tipo_Resolucion"
+                                    },
+                                    {
+                                        "name": "Fecha_Respuesta",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Fecha_Respuesta"
+                                    },
+                                    {
+                                        "name": "Tiempo_Respuesta_Min",
+                                        "type": "number",
+                                        "label": "Tiempo_Respuesta_Min"
+                                    },
+                                    {
+                                        "name": "Aprobaciones",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Aprobaciones"
+                                    },
+                                    {
+                                        "name": "Errores",
+                                        "spec": {
+                                            "label": "Record ID"
+                                        },
+                                        "type": "array",
+                                        "label": "Errores"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
