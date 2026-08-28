@@ -218,6 +218,10 @@ El prototipo demuestra un flujo de atención automatizada con IA que combina:
 - trazabilidad;
 - manejo de errores.
 
+  ## Video demostrativo
+
+[Ver demostración completa de PetFlow IA](https://drive.google.com/file/d/1n2U8Jjw55NyR5iCLEeLWRacmW7ynfVuC/view?usp=drive_link)
+
 El diseño permite automatizar tareas repetitivas sin eliminar el control humano en decisiones sensibles.
 
 ---
